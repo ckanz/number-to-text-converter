@@ -8,8 +8,8 @@ const argumentIsValid = argument => {
   if (!argument || isNaN(argument)) {
     throw('Argument must be a number');
   }
-  if (argument > 19) {
-    throw('Numbers larger than 19 are not supported yet');
+  if (argument > 99) {
+    throw('Numbers larger than 99 are not supported yet');
   }
   return true;
 }
@@ -17,6 +17,11 @@ const argumentIsValid = argument => {
 const processNumber = number => {
   if (argument < 20) {
     return below20s[argument];
+  }
+  if (argument <= 99) {
+    const firstNum = parseInt(argument.toString()[0]);
+    const secNum = parseInt(argument.toString()[1]);
+    return `${doubleDigitsTwentyPlus[firstNum - 2]}-${below20s[secNum]}`;
   }
   return 'Failed to parse number :(';
 }
