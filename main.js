@@ -1,7 +1,6 @@
 const {
   below20s,
-  doubleDigitsTens,
-  doubleDigitsTwentyPlus
+  tenners
 } = require('./number-text-strings');
 
 const argumentIsValid = argument => {
@@ -21,7 +20,7 @@ const processNumber = number => {
   if (argument <= 99) {
     const firstNum = parseInt(argument.toString()[0]);
     const secNum = parseInt(argument.toString()[1]);
-    return `${doubleDigitsTwentyPlus[firstNum - 2]}-${below20s[secNum]}`;
+    return `${tenners[firstNum]}-${below20s[secNum]}`;
   }
   return 'Failed to parse number :(';
 }
