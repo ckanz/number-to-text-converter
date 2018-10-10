@@ -61,18 +61,24 @@ const processTripleStringArray = segmentStringArray => {
   }
 }
 
-const processNumber = number => {
-  const triples = number.toString().match(/.{1,3}/g);
+const processEuros = euros => {
+  const triples = euros.toString().match(/.{1,3}/g);
   const segmentStringArray = triples.map(segmentString => {
     return processSegment(segmentString);
   });
-  return processTripleStringArray(segmentStringArray);
+  return `${processTripleStringArray(segmentStringArray)} euros`;
+}
+
+const processCents = cents => {
+  const centString = cents ? processDoubleDigitNumber(cents) : 'zero';
+  return ` and ${centString} cents`;
 }
 
 const argument = process.argv[2];
 
 if (argumentIsValid(argument)) {
-  console.log(
-    processNumber(argument)
-  );
+  const splitNumber = argument.split('.');
+  const euros = splitNumber[0];
+  const cents = splitNumber[1] && splitNumber[1].length === 1 ? splitNumber[1]+'0' : splitNumber[1];
+  console.log(processEuros(euros)+processCents(cents));
 }
