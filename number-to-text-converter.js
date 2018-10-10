@@ -16,11 +16,11 @@ const processSingleDigitNumber = number => {
 }
 
 const processDoubleDigitNumber = number => {
-  const digits = number.split('');
   const integerNumber = parseInt(number);
   if (integerNumber < 20) {
-    return processSingleDigitNumber(integerNumber);
+    return processSingleDigitNumber(number);
   }
+  const digits = number.split('');
   const firstHalf = digits[0] !== '0' ? tenners[digits[0]] : '';
   const secondHalf = digits[1] !== '0' ? `-${processSingleDigitNumber(digits[1])}` : '';
   return `${firstHalf}${secondHalf}`;
@@ -54,7 +54,7 @@ const processTripleStringArray = segmentStringArray => {
     return segmentStringArray[0];
   }
   if (length === 2) {
-    const thousandString = segmentStringArray[0] !== 'zero' ?`${segmentStringArray[0]} thousand and ` : '';
+    const thousandString = segmentStringArray[0] && segmentStringArray[0] !== 'zero' ?`${segmentStringArray[0]} thousand and ` : '';
     return `${thousandString}${segmentStringArray[1]}`;
   }
 }
@@ -69,7 +69,7 @@ const processEuros = euros => {
 
 const processCents = cents => {
   const centString = cents ? processDoubleDigitNumber(cents) : 'zero';
-  return ` and ${centString} cents`;
+  return ` and ${centString || 'zero'} cents`;
 }
 
 const argument = process.argv[2];
@@ -78,5 +78,7 @@ if (argumentIsValid(argument)) {
   const splitNumber = argument.split('.');
   const euros = splitNumber[0];
   const cents = splitNumber[1] && splitNumber[1].length === 1 ? splitNumber[1]+'0' : splitNumber[1];
-  console.log(processEuros(euros)+processCents(cents));
+  const euroString = processEuros(euros);
+  const centString = processCents(cents);
+  console.log(euroString+centString);
 }
