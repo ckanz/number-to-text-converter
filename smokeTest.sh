@@ -21,11 +21,15 @@ echo "398 => \c" && node main.js 398
 echo "507 => \c" && node main.js 507
 echo "999 => \c" && node main.js 999
 
+echo "3098 => \c" && node main.js 3098
+echo "5111 => \c" && node main.js 5111
+
+echo "94198 => \c" && node main.js 94198
+echo "00398 => \c" && node main.js 00398
+echo "99999 => \c" && node main.js 99999
+
 echo "123098 => \c" && node main.js 123098
-echo "765111 => \c" && node main.js 765111
 echo "904198 => \c" && node main.js 904198
 echo "000398 => \c" && node main.js 000398
-echo "100507 => \c" && node main.js 100507
-echo "999999 => \c" && node main.js 999999
 
 echo '...no errors thrown, check result above.'

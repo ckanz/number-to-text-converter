@@ -1,6 +1,6 @@
 const {
   below20s,
-  tenners
+  tenners,
 } = require('./number-text-strings');
 
 const argumentIsValid = argument => {
@@ -37,25 +37,36 @@ const processTripleDigitNumber = number => {
   return `${hundredText}${ntyText}`;
 }
 
-const processTriples = tripleString => {
-  const digits = tripleString.split('');
+const processSegment = segmentString => {
+  const digits = segmentString.split('');
   if (digits.length === 1) {
-    return processSingleDigitNumber(tripleString);
+    return processSingleDigitNumber(segmentString);
   }
   if (digits.length === 2) {
-    return processDoubleDigitNumber(tripleString);
+    return processDoubleDigitNumber(segmentString);
   }
   if (digits.length === 3) {
-    return processTripleDigitNumber(tripleString);
+    return processTripleDigitNumber(segmentString);
+  }
+}
+
+const processTripleStringArray = segmentStringArray => {
+  const length = segmentStringArray.length;
+  if (length === 1) {
+    return segmentStringArray[0];
+  }
+  if (length === 2) {
+    const thousandString = segmentStringArray[0] !== 'zero' ?`${segmentStringArray[0]} thousand and ` : '';
+    return `${thousandString}${segmentStringArray[1]}`;
   }
 }
 
 const processNumber = number => {
   const triples = number.toString().match(/.{1,3}/g);
-  const tripleStringArray = triples.map(tripleString => {
-    return processTriples(tripleString);
+  const segmentStringArray = triples.map(segmentString => {
+    return processSegment(segmentString);
   });
-  return tripleStringArray;
+  return processTripleStringArray(segmentStringArray);
 }
 
 const argument = process.argv[2];
