@@ -12,7 +12,7 @@ const argumentIsValid = argument => {
 }
 
 const processSingleDigitNumber = number => {
-  return below20s[number];
+  return below20s[parseInt(number)];
 }
 
 const processDoubleDigitNumber = number => {
@@ -69,7 +69,7 @@ const processEuros = euros => {
 
 const processCents = cents => {
   const centString = cents ? processDoubleDigitNumber(cents) : 'zero';
-  return ` and ${centString || 'zero'} cents`;
+  return ` and ${centString || 'zero'} cents`; // TODO: should unexapected result default to 'zero cents'?
 }
 
 const argument = process.argv[2];
@@ -77,7 +77,7 @@ const argument = process.argv[2];
 if (argumentIsValid(argument)) {
   const splitNumber = argument.split('.');
   const euros = splitNumber[0];
-  const cents = splitNumber[1] && splitNumber[1].length === 1 ? splitNumber[1]+'0' : splitNumber[1];
+  const cents = splitNumber[1] && splitNumber[1].length === 1 ? splitNumber[1]+'0' : splitNumber[1]; // TODO: should be its own function
   const euroString = processEuros(euros);
   const centString = processCents(cents);
   console.log(euroString+centString);
