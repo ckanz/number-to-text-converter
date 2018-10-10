@@ -19,10 +19,22 @@ const processSingleDigitNumber = number => {
 
 const processDoubleDigitNumber = number => {
   const digits = number.split('');
-  if (number < 20) {
-    return processSingleDigitNumber(number);
+  const integerNumber = parseInt(number);
+  if (integerNumber < 20) {
+    return processSingleDigitNumber(integerNumber);
   }
-  return `${tenners[digits[0]]}-${processSingleDigitNumber(digits[1])}`;
+  const firstHalf = digits[0] !== '0' ? tenners[digits[0]] : '';
+  const secondHalf = digits[1] !== '0' ? `-${processSingleDigitNumber(digits[1])}` : '';
+  return `${firstHalf}${secondHalf}`;
+}
+
+const processTripleDigitNumber = number => {
+  const digits = number.split('');
+  const hundredText = digits[0] !== '0' ? `${processSingleDigitNumber(digits[0])} hundred and ` : '';
+  const ntyText = processDoubleDigitNumber(
+    String(digits[1]+digits[2])
+  );
+  return `${hundredText}${ntyText}`;
 }
 
 const processNumber = number => {
@@ -34,7 +46,7 @@ const processNumber = number => {
     return processDoubleDigitNumber(number);
   }
   if (digits.length === 3) {
-    return `${processSingleDigitNumber(digits[0])} hundred and ${processDoubleDigitNumber(digits[1]+digits[2])}`;
+    return processTripleDigitNumber(number);
   }
   return 'Failed to parse number :(';
 }
