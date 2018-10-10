@@ -1,7 +1,5 @@
-const {
-  below20s,
-  tenners,
-} = require('./number-text-strings');
+const below20s = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fiveteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+const tenners = ['zero', 'ten', 'twenty', 'thirty', 'fourty', 'fivety', 'sixty', 'seventy', 'eighty', 'ninety'];
 
 const argumentIsValid = argument => {
   if (!argument || isNaN(argument)) {
