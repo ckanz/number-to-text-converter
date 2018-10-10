@@ -7,7 +7,7 @@ const argumentIsValid = argument => {
   if (!argument || isNaN(argument)) {
     throw('Argument must be a number');
   }
-  if (argument > 999) {
+  if (argument > 999999) {
     throw('Numbers larger than 999 are not supported yet');
   }
   return true;
@@ -37,18 +37,25 @@ const processTripleDigitNumber = number => {
   return `${hundredText}${ntyText}`;
 }
 
-const processNumber = number => {
-  const digits = number.split('');
+const processTriples = tripleString => {
+  const digits = tripleString.split('');
   if (digits.length === 1) {
-    return processSingleDigitNumber(number);
+    return processSingleDigitNumber(tripleString);
   }
   if (digits.length === 2) {
-    return processDoubleDigitNumber(number);
+    return processDoubleDigitNumber(tripleString);
   }
   if (digits.length === 3) {
-    return processTripleDigitNumber(number);
+    return processTripleDigitNumber(tripleString);
   }
-  return 'Failed to parse number :(';
+}
+
+const processNumber = number => {
+  const triples = number.toString().match(/.{1,3}/g);
+  const tripleStringArray = triples.map(tripleString => {
+    return processTriples(tripleString);
+  });
+  return tripleStringArray;
 }
 
 const argument = process.argv[2];
