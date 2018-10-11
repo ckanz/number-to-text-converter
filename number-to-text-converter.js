@@ -36,7 +36,7 @@ const processDoubleDigitNumber = number => {
   }
   const digits = number.toString().split('');
   const firstHalf = digits[0] !== '0' ? tenners[digits[0]] : '';
-  const secondHalf = digits[1] !== '0' ? `-${processNumberBelow20(digits[1])}` : '';
+  const secondHalf = digits[1] !== '0' ? ` ${processNumberBelow20(digits[1])}` : '';
   return `${firstHalf}${secondHalf}`;
 }
 
@@ -47,7 +47,7 @@ const processDoubleDigitNumber = number => {
  */
 const processTripleDigitNumber = number => {
   const digits = number.split('');
-  const hundredText = digits[0] !== '0' ? `${processNumberBelow20(digits[0])} hundred and ` : '';
+  const hundredText = digits[0] !== '0' ? `${processNumberBelow20(digits[0])} hundred ` : '';
   const ntyText = processDoubleDigitNumber(
     String(digits[1]+digits[2])
   );
@@ -82,7 +82,7 @@ const processSegmentStringArray = segmentStringArray => {
     case 1:
       return segmentStringArray[0];
     case 2:
-      const thousandString = segmentStringArray[0] && segmentStringArray[0] !== 'zero' ?`${segmentStringArray[0]} thousand and ` : '';
+      const thousandString = segmentStringArray[0] && segmentStringArray[0] !== 'zero' ?`${segmentStringArray[0]} thousand ` : '';
       return `${thousandString}${segmentStringArray[1]}`;
     default:
       return '';
