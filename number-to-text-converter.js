@@ -139,7 +139,7 @@ const parseCentString = centString => {
   if (centString.length === 1) {
     return `${centString}0`;
   }
-  return centString;
+  return centString.slice(0, 2);
 }
 
 /**
