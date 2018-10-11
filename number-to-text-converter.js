@@ -59,8 +59,17 @@ const processSegmentStringArray = segmentStringArray => {
   }
 }
 
+const splitStringIntoThreeDigitSegments = euroString => {
+  const threeDigitSegments = [];
+  while (euroString) {
+    threeDigitSegments.push(euroString.substring(euroString.length -3, euroString.length));
+    euroString = euroString.substring(0, euroString.length - 3)
+  }
+  return threeDigitSegments.reverse();
+}
+
 const processEuros = euros => {
-  const threeDigitSegments = euros.toString().match(/.{1,3}/g);
+  const threeDigitSegments = splitStringIntoThreeDigitSegments(euros.toString());
   const segmentStringArray = threeDigitSegments.map(segmentString => processSegment(segmentString));
   const euroString = processSegmentStringArray(segmentStringArray);
   const euroSuffix = euroString !== 'one' ? 'euros' : 'euro';
@@ -73,11 +82,22 @@ const processCents = cents => {
   return ` and ${centString || 'zero'} ${centSuffix}`;
 }
 
+const parseCentString = centString => {
+  if (!centString) {
+    return '00';
+  }
+  if (centString.length === 1) {
+    return `${centString}0`;
+  }
+  return centString;
+}
+
 const getEuroAndCentValue = argument => {
   const splitNumber = argument.toString().split('.');
-  const euros = parseInt(splitNumber[0]);
-  const cents = parseInt(splitNumber[1] ? `${splitNumber[1]}0` : '0');
-  return { euros, cents };
+  return {
+    euros: parseInt(splitNumber[0]),
+    cents: parseInt(parseCentString(splitNumber[1]))
+  };
 }
 
 const argument = process.argv[2];
