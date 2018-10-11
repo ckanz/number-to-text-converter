@@ -159,7 +159,13 @@ const argument = process.argv[2];
 
 if (argumentIsValid(argument)) {
   const parsedCurrencyValue = getEuroAndCentValue(argument);
+
   const euroString = processEuros(parsedCurrencyValue.euros);
   const centString = processCents(parsedCurrencyValue.cents);
-  console.log(euroString+centString);
+
+  console.log(
+    euroString[0].toUpperCase() +
+    euroString.slice(1) +
+    centString
+  );
 }
