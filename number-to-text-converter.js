@@ -1,8 +1,8 @@
-const below20s = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fiveteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-const tenners = ['zero', 'ten', 'twenty', 'thirty', 'fourty', 'fivety', 'sixty', 'seventy', 'eighty', 'ninety'];
+const below20s = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+const tenners = ['zero', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 
 /**
- * Checks wether provided arguments are valid. Returns true if argument is valid, otherwise throws exception.
+ * Checks whether provided arguments are valid. Returns true if argument is valid, otherwise throws exception.
  * @param  {string} argument The provided argument.
  * @return {boolean} true if the argument passes all checks
  */
@@ -104,7 +104,7 @@ const splitStringIntoThreeDigitSegments = euroString => {
 }
 
 /**
- * Takes a number and returns its written euqivilant with a euro currency suffix.
+ * Takes a number and returns its written equivalent with a euro currency suffix.
  * @param  {number} euros The euro number to be processed.
  * @return {string} The written number and currency.
  */
@@ -117,7 +117,7 @@ const processEuros = euros => {
 }
 
 /**
- * Takes a number and returns its written euqivilant with a cents currency suffix.
+ * Takes a number and returns its written equivalent with a cents currency suffix.
  * @param  {number} cents The cents number to be processed.
  * @return {string} The written number and currency.
  */
