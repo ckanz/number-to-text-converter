@@ -1,6 +1,11 @@
 const below20s = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fiveteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
 const tenners = ['zero', 'ten', 'twenty', 'thirty', 'fourty', 'fivety', 'sixty', 'seventy', 'eighty', 'ninety'];
 
+/**
+ * Checks wether provided arguments are valid. Returns true if argument is valid, otherwise throws exception.
+ * @param  {string} argument The provided argument.
+ * @return {boolean} true if the argument passes all checks
+ */
 const argumentIsValid = argument => {
   if (!argument || isNaN(parseInt(argument))) {
     throw('Argument must be a number');
@@ -11,10 +16,20 @@ const argumentIsValid = argument => {
   return true;
 }
 
+/**
+ * Takes any number below 20 and returns its written equivalent.
+ * @param  {string} number The number to be turned into written form.
+ * @return {string} The written number.
+ */
 const processNumberBelow20 = number => {
   return below20s[parseInt(number)];
 }
 
+/**
+ * Takes any two-digit number and returns its written equivalent.
+ * @param  {string} number The number to be turned into written form.
+ * @return {string} The written number.
+ */
 const processDoubleDigitNumber = number => {
   if (parseInt(number) < 20) {
     return processNumberBelow20(number);
@@ -25,6 +40,11 @@ const processDoubleDigitNumber = number => {
   return `${firstHalf}${secondHalf}`;
 }
 
+/**
+ * Takes any three-digit number and returns its written equivalent.
+ * @param  {string} number The number to be turned into written form.
+ * @return {string} The written number.
+ */
 const processTripleDigitNumber = number => {
   const digits = number.split('');
   const hundredText = digits[0] !== '0' ? `${processNumberBelow20(digits[0])} hundred and ` : '';
@@ -34,6 +54,11 @@ const processTripleDigitNumber = number => {
   return `${hundredText}${ntyText}`;
 }
 
+/**
+ * Takes a number between 1-3 digits long and returns its written equivalent.
+ * @param  {string} number The number to be turned into written form.
+ * @return {string} The written number.
+ */
 const processSegment = segmentString => {
   switch (segmentString.split('').length) {
     case 1:
@@ -47,6 +72,11 @@ const processSegment = segmentString => {
   }
 }
 
+/**
+ * Takes an array of strings containing written number representations and turns it into one readable string.
+ * @param  {Array<string>} segmentStringArray An array of strings containing written representations of each three-digit segment of the currency value.
+ * @return {string} The full written number.
+ */
 const processSegmentStringArray = segmentStringArray => {
   switch (segmentStringArray.length) {
     case 1:
@@ -59,6 +89,11 @@ const processSegmentStringArray = segmentStringArray => {
   }
 }
 
+/**
+ * Takes a string and splits it into chunks of 3 digits starting from the back.
+ * @param  {string} euroString The string to be split.
+ * @return {Array} An array containing the split segments.
+ */
 const splitStringIntoThreeDigitSegments = euroString => {
   const threeDigitSegments = [];
   while (euroString) {
@@ -68,6 +103,11 @@ const splitStringIntoThreeDigitSegments = euroString => {
   return threeDigitSegments.reverse();
 }
 
+/**
+ * Takes a number and returns its written euqivilant with a euro currency suffix.
+ * @param  {number} euros The euro number to be processed.
+ * @return {string} The written number and currency.
+ */
 const processEuros = euros => {
   const threeDigitSegments = splitStringIntoThreeDigitSegments(euros.toString());
   const segmentStringArray = threeDigitSegments.map(segmentString => processSegment(segmentString));
@@ -76,12 +116,22 @@ const processEuros = euros => {
   return `${euroString} ${euroSuffix}`;
 }
 
+/**
+ * Takes a number and returns its written euqivilant with a cents currency suffix.
+ * @param  {number} cents The cents number to be processed.
+ * @return {string} The written number and currency.
+ */
 const processCents = cents => {
   const centString = cents ? processDoubleDigitNumber(cents) : 'zero';
   const centSuffix = centString !== 'one' ? 'cents' : 'cent';
   return ` and ${centString || 'zero'} ${centSuffix}`;
 }
 
+/**
+ * Takes a string representing cents behind the dot and converts them into a two-digit representation if necessary.
+ * @param  {string} cents The cents number to be processed.
+ * @return {string} The cents number in two-digit representation.
+ */
 const parseCentString = centString => {
   if (!centString) {
     return '00';
@@ -92,6 +142,11 @@ const parseCentString = centString => {
   return centString;
 }
 
+/**
+ * Takes a string representing a currency value and splits euros and cents.
+ * @param  {string} argument The currency value to be processed.
+ * @return {object} An object containing the euro and cent value.
+ */
 const getEuroAndCentValue = argument => {
   const splitNumber = argument.toString().split('.');
   return {
